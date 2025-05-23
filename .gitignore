@@ -1,0 +1,5 @@
+# Ignore node_modules and local configs
+node_modules/
+accounts.json
+.DS_Store
+*.log
