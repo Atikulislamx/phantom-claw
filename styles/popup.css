@@ -1,0 +1,123 @@
+/* Phantom Claw - styles/popup.css */
+/* Hacker-style neon/dark theme for the popup UI */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap');
+
+body {
+  background: #11131a;
+  color: #e2eafc;
+  font-family: 'Fira Mono', monospace;
+  margin: 0;
+  min-width: 320px;
+  min-height: 350px;
+}
+
+.container {
+  padding: 20px 18px 16px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #181c24 60%, #2d2d54 100%);
+  box-shadow: 0 0 12px #00f0ff55, 0 0 40px #2d00ff22;
+}
+
+h1 {
+  color: #00fff9;
+  text-shadow: 0 0 6px #00fff9, 0 0 18px #2e44ff66;
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+label {
+  color: #b2bfff;
+  font-size: 1em;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+  display: block;
+}
+
+input, select {
+  background: #181c24;
+  border: 1.5px solid #00fff9;
+  color: #00fff9;
+  border-radius: 5px;
+  padding: 7px 10px;
+  margin-bottom: 14px;
+  font-family: 'Fira Mono', monospace;
+  font-size: 1em;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  border-color: #2e44ff;
+  box-shadow: 0 0 8px #00fff9aa;
+}
+
+button {
+  background: linear-gradient(90deg, #00fff9 50%, #2e44ff 100%);
+  color: #181c24;
+  font-weight: 700;
+  font-family: 'Fira Mono', monospace;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #00fff9, 0 0 18px #2e44ff55;
+  cursor: pointer;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 1.08em;
+  padding: 10px 0;
+  letter-spacing: 1.5px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #2e44ff 50%, #00fff9 100%);
+  color: #fff;
+  box-shadow: 0 0 16px #2e44ffcc;
+}
+
+#logBox {
+  margin-top: 18px;
+  padding: 12px 10px;
+  background: #181c24;
+  border-radius: 7px;
+  min-height: 44px;
+  font-size: 1em;
+  box-shadow: 0 0 10px #00fff944;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-left: 4px solid #00fff9;
+  transition: border-color 0.3s;
+}
+
+/* Status-based log color cues (optional, JS can set these) */
+#logBox.success {
+  border-left-color: #1aff67;
+  color: #1aff67;
+}
+
+#logBox.failed {
+  border-left-color: #ff1a53;
+  color: #ff4e73;
+}
+
+#logBox.in-progress {
+  border-left-color: #00fff9;
+  color: #00fff9;
+}
+
+/* Responsive for small screens */
+@media (max-width: 370px) {
+  body {
+    min-width: 0;
+  }
+  .container {
+    padding: 13px 7px;
+  }
+}
