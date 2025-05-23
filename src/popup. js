@@ -1,0 +1,63 @@
+// Phantom Claw - popup.js
+// Handles user input, validates Facebook profile URL, updates UI log, and communicates with background script
+
+// Get UI elements
+const profileUrlInput = document.getElementById('profileUrl');
+const reportMethodSelect = document.getElementById('reportMethod');
+const reportBtn = document.getElementById('reportBtn');
+const logBox = document.getElementById('logBox');
+
+// Utility: Validate Facebook profile URL
+function isValidFacebookProfile(url) {
+  // Accepts URLs like https://facebook.com/username or https://www.facebook.com/username
+  return /^https:\/\/(www\.)?facebook\.com\/[A-Za-z0-9.\-_]+(\/)?(\?.*)?$/.test(url.trim());
+}
+
+// Listen for "Report Profile" button click
+reportBtn.addEventListener('click', () => {
+  const profileUrl = profileUrlInput.value.trim();
+  const reportMethod = reportMethodSelect.value;
+
+  logBox.textContent = ''; // Clear previous logs
+
+  // Validate URL
+  if (!isValidFacebookProfile(profileUrl)) {
+    logBox.textContent = "❌ Please enter a valid Facebook profile URL.";
+    return;
+  }
+
+  logBox.textContent = "⏳ Initiating report...";
+
+  // Send message to background to start the automation
+  chrome.runtime.sendMessage(
+    { action: 'reportProfile', profileUrl, reportMethod },
+    (response) => {
+      if (chrome.runtime.lastError) {
+        logBox.textContent = "❌ Extension error: " + chrome.runtime.lastError.message;
+        return;
+      }
+      if (response && response.status === 'in-progress') {
+        logBox.textContent = "🔄 Reporting in progress...";
+      } else {
+        logBox.textContent = "❌ Failed to start report. Try again.";
+      }
+    }
+  );
+});
+
+// Listen for log/status updates from content script via window.postMessage
+window.addEventListener('message', (event) => {
+  // Only handle messages sent by Phantom Claw
+  if (event.data && event.data.source === "phantom-claw") {
+    if (event.data.status === "success") {
+      logBox.textContent = "✅ Profile reported successfully!";
+    } else if (event.data.status === "failed") {
+      logBox.textContent = "❌ Failed: " + (event.data.message || "Unknown error.");
+    } else if (event.data.status === "in-progress") {
+      logBox.textContent = "🔄 " + (event.data.message || "Reporting in progress...");
+    }
+  }
+});
+
+// Optional: Autofocus on the profile URL input for better UX
+profileUrlInput.focus();
