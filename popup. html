@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phantom Claw</title>
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Phantom Claw</h1>
+    <label for="profileUrl">Facebook Profile URL:</label>
+    <input type="text" id="profileUrl" placeholder="https://facebook.com/username">
+    <label for="reportMethod">Report Using:</label>
+    <select id="reportMethod">
+      <option value="current">Current Account</option>
+      <option value="cookie" disabled>Alternate Account (coming soon)</option>
+    </select>
+    <button id="reportBtn">Report Profile</button>
+    <div id="logBox"></div>
+  </div>
+  <script src="src/popup.js"></script>
+</body>
+</html>
